@@ -10,6 +10,7 @@
     <Project Path="Core/Lithan.Core/Lithan.Core.csproj" Id="24404a61-818b-4d92-8e55-a667f86201c4" />
   </Folder>
   <Folder Name="/Solution Items/">
+    <File Path="../.github/workflows/ci.yml" />
     <File Path="../README.md" />
   </Folder>
   <Folder Name="/TestUtilities/">
