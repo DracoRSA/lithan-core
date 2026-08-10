@@ -237,6 +237,37 @@ public class LithanResultsTests
     }
 
     [Fact]
+    public void Match_GivenEmptyAndActionOverload_ShouldExecuteNullPath()
+    {
+        // Arrange
+        var result     = LithanResults<string>.Success([]);
+        var nullCalled = false;
+
+        // Act
+        result.Match(success: _ => Assert.Fail("Success should not be called"),
+                     failure: _ => Assert.Fail("Failure should not be called"),
+                     nullValue: () => nullCalled = true);
+
+        // Assert
+        nullCalled.Should().BeTrue();
+    }
+
+    [Fact]
+    public void Match_GivenEmptyAndTypedOverload_ShouldReturnNullValuePath()
+    {
+        // Arrange
+        var result = LithanResults<string>.Success([]);
+
+        // Act
+        var matched = result.Match(success: _ => "success",
+                                   failure: _ => "failure",
+                                   nullValue: () => "null");
+
+        // Assert
+        matched.Should().Be("null");
+    }
+
+    [Fact]
     public void Match_GivenSuccessAndTypedSuccessOnlyOverload_ShouldReturnSuccessValue()
     {
         // Arrange

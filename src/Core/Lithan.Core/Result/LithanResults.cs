@@ -126,13 +126,13 @@ public sealed class LithanResults<T>
     /// <returns>
     /// Newly created result
     /// </returns>
-    public TResult? Match<TResult>(Func<List<T>, TResult> success, Func<LithanError, TResult> failure, Func<TResult> nullValue)
+    public TResult Match<TResult>(Func<List<T>, TResult> success, Func<LithanError, TResult> failure, Func<TResult> nullValue)
     {
         return IsError switch
                {
-                   false when _resultValues == null => nullValue(),
-                   true                             => failure(_resultError!),
-                   _                                => success(_resultValues)
+                   false when _resultValues is null || _resultValues.Count <= 0 => nullValue(),
+                   true                                                         => failure(_resultError!),
+                   _                                                            => success(_resultValues)
                };
     }
 
@@ -178,7 +178,7 @@ public sealed class LithanResults<T>
     {
         switch (IsError)
         {
-            case false when _resultValues == null:
+            case false when _resultValues is null || _resultValues.Count <= 0:
                 nullValue.Invoke();
                 return;
             case true:
@@ -233,9 +233,9 @@ public sealed class LithanResults<T>
     {
         return IsError switch
                {
-                   false when _resultValues == null => await nullValue.Invoke(),
-                   true                             => await failure.Invoke(_resultError!),
-                   _                                => await success(_resultValues)
+                   false when _resultValues is null || _resultValues.Count <= 0 => await nullValue.Invoke(),
+                   true                                                         => await failure.Invoke(_resultError!),
+                   _                                                            => await success(_resultValues)
                };
     }
 
@@ -281,7 +281,7 @@ public sealed class LithanResults<T>
     {
         switch (IsError)
         {
-            case false when _resultValues == null:
+            case false when _resultValues is null || _resultValues.Count <= 0:
                 await nullValue.Invoke();
                 return;
             case true:

@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
 
 namespace Lithan.Core.Api.Controllers;
 
@@ -29,12 +30,12 @@ public abstract class LithanControllerBase : Controller
             return new CreatedResult(new Uri($"https://locahost/api/{relativeLocationPath}"), returnedObject);
         }
 
-        if (httpRequest.Headers.TryGetValue("X-ORIGINAL-HOST", out var originalHostHeader))
+        if (httpRequest.Headers.TryGetValue("X-ORIGINAL-HOST", out StringValues originalHostHeader))
         {
-            return new CreatedResult(new Uri($"https://{originalHostHeader}/{httpRequest.PathBase}/{relativeLocationPath}"), returnedObject);
+            return new CreatedResult(new Uri($"https://{originalHostHeader}/api/{relativeLocationPath}"), returnedObject);
         }
 
-        return new CreatedResult(new Uri($"https://{httpRequest.Host}/{httpRequest.PathBase}/{relativeLocationPath}"), returnedObject);
+        return new CreatedResult(new Uri($"https://{httpRequest.Host}/api/{relativeLocationPath}"), returnedObject);
     }
 
     /// <summary>
@@ -97,7 +98,7 @@ public abstract class LithanControllerBase : Controller
         var errorDetails = JsonSerializer.Serialize(new
         {
             message = $"[{errorCode}] {errorMessage}",
-            details = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+            details = string.Equals(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "Development", StringComparison.InvariantCultureIgnoreCase)
                           ? runtimeException?.ToString() ?? "Unknown error occurred"
                           : null
         });

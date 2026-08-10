@@ -32,7 +32,6 @@ public class LithanControllerBaseTests
         // Arrange
         var httpContext = new DefaultHttpContext();
         httpContext.Request.Headers["X-ORIGINAL-HOST"] = "gateway.example.com";
-        httpContext.Request.PathBase = "/app";
         httpContext.Request.Host = new HostString("internal.example.com");
         var returnedObject = new { Id = 7 };
 
@@ -40,7 +39,7 @@ public class LithanControllerBaseTests
         var result = _controller.CreateCreatedResultPublic(httpContext.Request, "resources/7", returnedObject);
 
         // Assert
-        result.Location.Should().Be("https://gateway.example.com//app/resources/7");
+        result.Location.Should().Be("https://gateway.example.com/api/resources/7");
         result.Value.Should().BeSameAs(returnedObject);
     }
 
@@ -50,14 +49,13 @@ public class LithanControllerBaseTests
         // Arrange
         var httpContext = new DefaultHttpContext();
         httpContext.Request.Host = new HostString("api.example.com");
-        httpContext.Request.PathBase = "/v1";
         var returnedObject = new { Id = 3 };
 
         // Act
         var result = _controller.CreateCreatedResultPublic(httpContext.Request, "resources/3", returnedObject);
 
         // Assert
-        result.Location.Should().Be("https://api.example.com//v1/resources/3");
+        result.Location.Should().Be("https://api.example.com/api/resources/3");
         result.Value.Should().BeSameAs(returnedObject);
     }
 

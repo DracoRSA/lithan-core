@@ -43,6 +43,8 @@ public class RandomValueGenerator
         { typeof(DateTime?), () => (DateTime?)CreateRandomDate() },
         { typeof(DateOnly), () => DateOnly.FromDateTime(CreateRandomDate()) },
         { typeof(DateOnly?), () => (DateOnly?)DateOnly.FromDateTime(CreateRandomDate()) },
+        { typeof(TimeOnly), () => TimeOnly.FromDateTime(CreateRandomDate()) },
+        { typeof(TimeOnly?), () => (TimeOnly?)TimeOnly.FromDateTime(CreateRandomDate()) },
         { typeof(Uri), () => new Uri("https://testutilities.com") },
         { typeof(CancellationToken), () => CancellationToken.None }
     };

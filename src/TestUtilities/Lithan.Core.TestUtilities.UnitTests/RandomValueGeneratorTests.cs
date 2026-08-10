@@ -158,6 +158,25 @@ public class RandomValueGeneratorTests
         randomDate2.Should().NotBeSameAs(randomDate3);
     }
 
+    [Fact]
+    public void CreateRandomTimeOnly_GivenMultipleCalls_ShouldCreateRandomTimeOnlys()
+    {
+        //  Arrange
+
+        //  Act
+        var randomTime1 = RandomValueGenerator.CreateRandomValue(typeof(TimeOnly));
+        var randomTime2 = RandomValueGenerator.CreateRandomValue(typeof(TimeOnly));
+        var randomTime3 = RandomValueGenerator.CreateRandomValue(typeof(TimeOnly));
+
+        //  Assert
+        randomTime1.Should().NotBeNull();
+        randomTime2.Should().NotBeNull();
+        randomTime3.Should().NotBeNull();
+        randomTime1.Should().BeOfType<TimeOnly>();
+        randomTime2.Should().BeOfType<TimeOnly>();
+        randomTime3.Should().BeOfType<TimeOnly>();
+    }
+
     [Theory]
     [InlineData(typeof(uint), typeof(uint))]
     [InlineData(typeof(short), typeof(short))]
@@ -167,6 +186,7 @@ public class RandomValueGeneratorTests
     [InlineData(typeof(double), typeof(double))]
     [InlineData(typeof(byte), typeof(byte))]
     [InlineData(typeof(byte[]), typeof(byte[]))]
+    [InlineData(typeof(TimeOnly), typeof(TimeOnly))]
     [InlineData(typeof(FakeException), typeof(FakeException))]
     [InlineData(typeof(Dictionary<string, object>), typeof(Dictionary<string, object>))]
     [InlineData(typeof(IDictionary<string, object>), typeof(Dictionary<string, object>))]
@@ -190,6 +210,7 @@ public class RandomValueGeneratorTests
     [InlineData(typeof(decimal?), typeof(decimal))]
     [InlineData(typeof(DateTime?), typeof(DateTime))]
     [InlineData(typeof(DateOnly?), typeof(DateOnly))]
+    [InlineData(typeof(TimeOnly?), typeof(TimeOnly))]
     public void CreateRandomNullableValue_GivenType_ShouldNotThrowExceptionAndCreateRandomValue(Type objectType, Type expectedType)
     {
         //  Arrange
