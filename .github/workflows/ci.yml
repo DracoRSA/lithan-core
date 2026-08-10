@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore
+        run: dotnet restore src/Lithan.Core.slnx
+
+      - name: Build
+        run: dotnet build src/Lithan.Core.slnx --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test src/Lithan.Core.slnx --configuration Release --no-build --verbosity normal
+
+  pack-and-publish:
+    name: Pack and Publish NuGet Packages
+    needs: build-and-test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Resolve package version
+        id: version
+        shell: bash
+        run: |
+          version=$(sed -n 's/.*<Version>\([^<]*\)<\/Version>.*/\1/p' src/Core/Lithan.Core/Lithan.Core.csproj | head -n 1)
+          major_minor=$(echo "$version" | cut -d. -f1,2)
+          package_version="${major_minor}.${{ github.run_number }}"
+          echo "package_version=${package_version}" >> "$GITHUB_OUTPUT"
+          echo "Using package version ${package_version}"
+
+      - name: Restore
+        run: dotnet restore src/Lithan.Core.slnx
+
+      - name: Pack
+        run: >
+          dotnet pack src/Lithan.Core.slnx
+          --configuration Release
+          --output "${{ github.workspace }}/artifacts"
+          -p:Version=${{ steps.version.outputs.package_version }}
+          -p:PackageVersion=${{ steps.version.outputs.package_version }}
+
+      - name: Upload NuGet packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-packages
+          path: artifacts/*.nupkg
+
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Publish NuGet packages
+        run: >
+          dotnet nuget push "${{ github.workspace }}/artifacts/*.nupkg"
+          --api-key ${{ steps.login.outputs.NUGET_API_KEY }}
+          --source https://api.nuget.org/v3/index.json
+          --skip-duplicate

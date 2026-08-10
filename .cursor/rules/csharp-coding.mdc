@@ -1,0 +1,15 @@
+---
+description: C# coding conventions for Lithan.Core library projects
+globs: src/**/*.cs
+alwaysApply: false
+---
+
+# C# Coding Conventions
+
+- Target the existing TFM and package versions already referenced by the project; do not bump casually.
+- Enable nullable reference types; prefer `string?` / `T?` over null-forgiving unless matching an existing seam.
+- Prefer `sealed` for concrete model/result types that are not designed for inheritance.
+- Use expression-bodied members for trivial one-liners when the surrounding file already does.
+- Guard public entry points with argument validation (`?? throw new ArgumentNullException(nameof(...))`, range checks).
+- Keep library code free of test-framework references; test helpers live in `TestUtilities*`.
+- Match existing formatting: aligned assignments when nearby code aligns them; file-scoped namespaces are not used here—follow the file you edit.

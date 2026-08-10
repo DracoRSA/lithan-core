@@ -1,0 +1,39 @@
+---
+description: Unit test conventions for Lithan.Core xUnit tests
+globs: "**/*Tests.cs,**/*TestHelper*.cs,**/*UnitTests*/**/*.cs"
+alwaysApply: false
+---
+
+# Unit Test Conventions
+
+## Structure
+
+Every `[Fact]` / `[Theory]` must include these sections, even when empty:
+
+```csharp
+// Arrange
+
+// Act
+
+// Assert
+```
+
+## Naming
+
+`MethodUnderTest_GivenCondition_ShouldExpectedBehavior`
+
+Examples: `Constructor_GivenNullParameterValue_ShouldThrowArgumentNullException`
+
+## Style
+
+- Prefer AwesomeAssertions for outcome checks.
+- Use `Record.Exception` / `Record.ExceptionAsync` when the test expects no exception.
+- Use `Assert.Throws` / `Assert.ThrowsAsync` (and `FailException` when helpers fail a test) for expected failures.
+- Prefer `[Theory]` + `[InlineData]` over duplicated facts.
+- For constructors/properties/methods under test in product code, prefer `XUnitConstructorTestHelper`, `XUnitPropertyTestHelper`, `XUnitMethodTestHelper`, `XUnitAttributeTestHelper`.
+- Keep fakes in `Fakes/`; do not build heavy test doubles when a fake or NSubstitute mock suffices.
+
+## Scope
+
+- Test behavior of the unit and its public contract.
+- Do not assert implementation details that the helpers already encapsulate unless testing the helpers themselves.

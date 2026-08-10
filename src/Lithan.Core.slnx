@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Core/">
+    <Project Path="Core/Lithan.Core.UnitTests/Lithan.Core.UnitTests.csproj" Id="3e3011c9-273b-4a18-85df-375e9d23b731" />
+    <Project Path="Core/Lithan.Core/Lithan.Core.csproj" Id="24404a61-818b-4d92-8e55-a667f86201c4" />
+  </Folder>
+  <Folder Name="/TestUtilities/">
+    <Project Path="TestUtilities/Lithan.Core.TestUtilities.UnitTests/Lithan.Core.TestUtilities.UnitTests.csproj" Id="71177076-8639-46be-91c4-9ae505ba7d5d" />
+    <Project Path="TestUtilities/Lithan.Core.TestUtilities.XUnit/Lithan.Core.TestUtilities.XUnit.csproj" Id="d06c8d7b-987a-47b4-bc66-0585bf3aebaf" />
+    <Project Path="TestUtilities/Lithan.Core.TestUtilities/Lithan.Core.TestUtilities.csproj" Id="6871721a-1995-450c-93ae-a605dd467f1b" />
+  </Folder>
+</Solution>

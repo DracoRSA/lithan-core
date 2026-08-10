@@ -1,0 +1,30 @@
+---
+description: Always follow existing Lithan.Core patterns before inventing new ones
+alwaysApply: true
+---
+
+# Follow Existing Patterns
+
+When adding or changing code, mirror patterns already used in the nearest related files. Prefer consistency over novelty.
+
+## Before Changing Code
+
+1. Find a similar class, helper, or test in the same project (or sibling project).
+2. Match its structure, naming, dependency choices, and assertion style.
+3. Reuse existing helpers (`ConstructorTestHelper`, `XUnitConstructorTestHelper`, `MethodTestHelper`, `XUnitMethodTestHelper`, `XUnitPropertyTestHelper`, `XUnitAttributeTestHelper`, `RandomValueGenerator`) instead of re-implementing the same checks.
+
+## Concrete Patterns In This Repo
+
+- **Assertions**: AwesomeAssertions (`Should()`), not raw `Assert.*` equality checks, unless testing the assert helpers themselves.
+- **Tests**: xUnit v3 `[Fact]` / `[Theory]` + `[InlineData]`.
+- **Mocks**: NSubstitute via existing test utilities.
+- **Null/ctor/method/property checks in product tests**: prefer `Lithan.Core.TestUtilities.XUnit` helpers.
+- **Fakes**: place under a `Fakes/` folder; name `Fake*`.
+- **XML docs**: keep on public APIs in library projects.
+- **Namespaces**: `Lithan.Core.*`, `Lithan.Core.TestUtilities*`, `Lithan.Core.UnitTests*`.
+
+## Do Not
+
+- Introduce a second assertion library, test framework, or parallel helper that duplicates an existing one.
+- Invent a new folder/layout convention when an existing one fits.
+- Copy-paste large blocks; extract or call the shared helper instead.

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <IsPackable>true</IsPackable>
+
+        <Authors>Johan Dercksen</Authors>
+        <Company>Lithan Solutions</Company>
+        <Product>Lithan Core</Product>
+        <PackageProjectUrl>https://github.com/DracoRSA/lithan-core</PackageProjectUrl>
+        <PackageTags>Lithan Core</PackageTags>
+        <Version>1.0.0</Version>
+    </PropertyGroup>
+
+</Project>

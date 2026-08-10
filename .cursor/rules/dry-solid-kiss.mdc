@@ -1,0 +1,27 @@
+---
+description: Apply DRY, SOLID, and KISS when changing Lithan.Core code
+alwaysApply: true
+---
+
+# DRY, SOLID, KISS
+
+## DRY
+
+- Share behavior through existing helpers/extensions; do not duplicate constructor, method, property, or attribute validation logic.
+- If the same Arrange/Act pattern appears in multiple tests, use a Theory or an existing `XUnit*TestHelper` method.
+- Keep one source of truth for fakes used by tests.
+
+## SOLID
+
+- **S**: One clear responsibility per type (e.g. result vs error vs test helper).
+- **O**: Extend via new helpers/overloads or new result match paths; avoid editing unrelated types to bolt on behavior.
+- **L**: Implementations must honor interface contracts (`ILithanError`, etc.).
+- **I**: Prefer small focused abstractions already in `Abstractions/`; do not widen interfaces for one caller.
+- **D**: Depend on abstractions and helpers already used by the solution; avoid hard-wiring new concrete infrastructure into core models.
+
+## KISS
+
+- Prefer the smallest change that matches an existing pattern.
+- Avoid speculative abstraction, extra layers, or configuration for unused scenarios.
+- Keep methods short and linear; fail fast with clear exceptions (`ArgumentNullException`, `ArgumentOutOfRangeException`).
+- Do not add comments, docs, or try/catch that only restate obvious code.
