@@ -5,22 +5,21 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>true</IsPackable>
-        <IsTestProject>false</IsTestProject>
 
         <Authors>Johan Dercksen</Authors>
         <Company>Lithan Solutions</Company>
         <Product>Lithan Core</Product>
         <PackageProjectUrl>https://github.com/DracoRSA/lithan-core</PackageProjectUrl>
-        <PackageTags>Lithan Test XUnit Utilities</PackageTags>
+        <PackageTags>Lithan Core API</PackageTags>
         <Version>1.0.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="xunit.v3.assert" Version="3.2.2" />
+        <PackageReference Include="FluentValidation" Version="12.1.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Lithan.Core.TestUtilities\Lithan.Core.TestUtilities.csproj" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
 </Project>

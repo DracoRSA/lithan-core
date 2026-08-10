@@ -182,6 +182,11 @@ public static class MethodTestHelper
             argumentNullException.ParamName.Should().Be(parameterName);
             Assert.True(true);
         }
+        catch (TargetInvocationException exception) when (exception.InnerException is ArgumentNullException argumentNullException)
+        {
+            argumentNullException.ParamName.Should().Be(parameterName);
+            Assert.True(true);
+        }
     }
 
     /// <summary>
@@ -235,6 +240,11 @@ public static class MethodTestHelper
         catch (TException exception)
         {
             exception.Message.Should().Contain(parameterName);
+            Assert.True(true);
+        }
+        catch (TargetInvocationException exception) when (exception.InnerException is TException typedException)
+        {
+            typedException.Message.Should().Contain(parameterName);
             Assert.True(true);
         }
     }

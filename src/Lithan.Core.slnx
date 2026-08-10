@@ -1,7 +1,16 @@
 <Solution>
+  <Folder Name="/API/">
+    <Project Path="Api/Lithan.Core.Api.UnitTests/Lithan.Core.Api.UnitTests.csproj" Id="9ad95659-fac9-4c93-b652-2511d0b40a6f" />
+    <Project Path="Api/Lithan.Core.Api/Lithan.Core.Api.csproj" Id="cd204a84-9db7-49a8-9576-0a8208dc5693" />
+  </Folder>
   <Folder Name="/Core/">
+    <Project Path="Core/Lithan.Core.Application.UnitTests/Lithan.Core.Application.UnitTests.csproj" Id="cab63569-d213-40ad-9404-123e14e069e4" />
+    <Project Path="Core/Lithan.Core.Application/Lithan.Core.Application.csproj" Id="2bec8f75-1224-4239-ac91-e76e21da351a" />
     <Project Path="Core/Lithan.Core.UnitTests/Lithan.Core.UnitTests.csproj" Id="3e3011c9-273b-4a18-85df-375e9d23b731" />
     <Project Path="Core/Lithan.Core/Lithan.Core.csproj" Id="24404a61-818b-4d92-8e55-a667f86201c4" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="../README.md" />
   </Folder>
   <Folder Name="/TestUtilities/">
     <Project Path="TestUtilities/Lithan.Core.TestUtilities.UnitTests/Lithan.Core.TestUtilities.UnitTests.csproj" Id="71177076-8639-46be-91c4-9ae505ba7d5d" />

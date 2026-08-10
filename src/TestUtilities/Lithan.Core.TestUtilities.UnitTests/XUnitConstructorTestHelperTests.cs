@@ -180,4 +180,45 @@ public class XUnitConstructorTestHelperTests
         // Assert
         exception.Message.Should().Contain($"ArgumentOutOfRangeException Exception not throw for Constructor Parameter [{parameterName}] on {typeof(FakeTestClass).FullName}");
     }
+
+    [Fact]
+    public void ValidateArgumentNullExceptionIfParameterIsNull_GivenMultipleConstructors_ShouldUseMatchingConstructor()
+    {
+        // Arrange
+
+        // Act
+        var exception = Record.Exception(() => XUnitConstructorTestHelper.ValidateArgumentNullExceptionIfParameterIsNull<FakeTestClass3>("fakeComplex", ("testId", 1)));
+
+        // Assert
+        exception.Should().BeNull();
+    }
+
+    [Fact]
+    public void ValidateExceptionIsThrownIfParameterIsNull_GivenAllParametersMatch_ShouldPassTest()
+    {
+        // Arrange
+
+        // Act
+        var exception = Record.Exception(() => XUnitConstructorTestHelper.ValidateExceptionIsThrownIfParameterIsNull<FakeTestClass3, ArgumentNullException>("fakeComplex",
+                                                                                                                                                            true,
+                                                                                                                                                            ("testId", 1),
+                                                                                                                                                            ("fakeComplex", new FakeComplex())));
+
+        // Assert
+        exception.Should().BeNull();
+    }
+
+    [Theory]
+    [InlineData("testName", "Name")]
+    [InlineData("complexObject", "ComplexObject2")]
+    public void ValidatePropertySetWithParameter_GivenParameterSettingProperty_ShouldPassTest(string parameterName, string propertyName)
+    {
+        // Arrange
+
+        // Act
+        var exception = Record.Exception(() => XUnitConstructorTestHelper.ValidatePropertySetWithParameter<FakeTestClass>(parameterName, propertyName));
+
+        // Assert
+        exception.Should().BeNull();
+    }
 }
