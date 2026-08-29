@@ -6,7 +6,6 @@
         <Nullable>enable</Nullable>
         <IsPackable>true</IsPackable>
 
-        <Authors>Johan Dercksen</Authors>
         <Company>Lithan Solutions</Company>
         <Product>Lithan Core</Product>
         <PackageProjectUrl>https://github.com/DracoRSA/lithan-core</PackageProjectUrl>
