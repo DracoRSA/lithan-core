@@ -16,10 +16,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AwesomeAssertions" Version="9.5.0" />
-        <PackageReference Include="NSubstitute" Version="6.0.0" />
+        <PackageReference Include="AwesomeAssertions" Version="9.6.0" />
+        <PackageReference Include="NSubstitute" Version="6.2.0" />
         <PackageReference Include="Thuria.Zitidar.Extensions" Version="1.12.1" />
-        <PackageReference Include="xunit.v3.assert" Version="3.2.2" />
+        <PackageReference Include="xunit.v3.assert" Version="4.0.0" />
     </ItemGroup>
 
 </Project>
