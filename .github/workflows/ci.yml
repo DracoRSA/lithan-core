@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-dotnet@v6
         with:
           dotnet-version: "10.0.x"
+          global-json-file: global.json
 
       - name: Restore
         run: dotnet restore src/Lithan.Core.slnx
@@ -30,7 +31,11 @@ jobs:
         run: dotnet build src/Lithan.Core.slnx --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test src/Lithan.Core.slnx --configuration Release --no-build --verbosity normal
+        run: >
+          dotnet test src/Lithan.Core.slnx
+          --configuration Release
+          --no-build
+          --output Detailed
 
   pack-and-publish:
     name: Pack and Publish NuGet Packages
@@ -50,6 +55,7 @@ jobs:
         uses: actions/setup-dotnet@v6
         with:
           dotnet-version: "10.0.x"
+          global-json-file: global.json
 
       - name: Resolve package version
         id: version
